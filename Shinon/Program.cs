@@ -11,6 +11,7 @@ namespace Shinon
     {
         static void Main(string[] args)
         {
+            const string PATH_FILE = @".\path.txt";
             string PATH = Environment.GetEnvironmentVariable("PATH");
             string[] dirs = PATH.Split(';');
             List<string> new_dirs = new List<string>();
@@ -18,13 +19,16 @@ namespace Shinon
             {
                 Console.WriteLine(s);
             }
-            using (TextReader reader = File.OpenText(@".\path.txt"))
+            if (File.Exists(PATH_FILE))
             {
-                string line = reader.ReadLine();
-                if (!ExistPATH(dirs, line)) 
-                { 
-                    new_dirs.Add(line);
-                    Console.WriteLine("Add to PATH: " + line);
+                string[] lines = File.ReadAllLines(PATH_FILE);
+                foreach (string line in lines)
+                {
+                    if (!ExistPATH(dirs, line))
+                    {
+                        new_dirs.Add(line);
+                        Console.WriteLine("Add to PATH: " + line);
+                    }
                 }
             }
             StringBuilder sb = new StringBuilder();

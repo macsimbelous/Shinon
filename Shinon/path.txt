@@ -1,0 +1,3 @@
+﻿C:\utils
+C:\utils\eac3to
+C:\utils\ffmpeg\bin
